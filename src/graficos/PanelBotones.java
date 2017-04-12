@@ -35,13 +35,61 @@ public class PanelBotones extends JPanel {
                 char c = signos[i][j].charAt(0);
                 if(Character.isDigit(c)){
 
-                    ActionListener eventoNumerico = new Numero();
-                    botones[i][j].addActionListener(eventoNumerico);
+                    char numero = signos[i][j].charAt(0);
+                    int codigo = 0;
+
+                    switch(numero){
+                        case '0':
+                            codigo = KeyEvent.VK_0;
+                            break;
+                        case '1':
+                            codigo = KeyEvent.VK_1;
+                            break;
+                        case '2':
+                            codigo = KeyEvent.VK_2;
+                            break;
+                        case '3':
+                            codigo = KeyEvent.VK_3;
+                            break;
+                        case '4':
+                            codigo = KeyEvent.VK_4;
+                            break;
+                        case '5':
+                            codigo = KeyEvent.VK_5;
+                            break;
+                        case '6':
+                            codigo = KeyEvent.VK_6;
+                            break;
+                        case '7':
+                            codigo = KeyEvent.VK_7;
+                            break;
+                        case '8':
+                            codigo = KeyEvent.VK_8;
+                            break;
+                        case '9':
+                            codigo = KeyEvent.VK_9;
+                            break;
+                    }
+
+                    InputMap mapaEntrada = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+                    ActionMap mapaAccion = getActionMap();
+
+                    AbstractAction eventoNumerico = new Numero(signos[i][j]);
+
+                    mapaEntrada.put(KeyStroke.getKeyStroke(codigo, 0), "numero" + numero);
+                    mapaAccion.put("numero" + numero, eventoNumerico);
+
+                    botones[i][j].setAction(eventoNumerico);
 
                 }else if(c == '.'){
 
                     JTextField pantalla = PanelCalculadora.getPantalla();
-                    botones[i][j].addActionListener(new ActionListener() {
+
+                    InputMap mapaEntrada = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+                    ActionMap mapaAccion = getActionMap();
+
+                    AbstractAction eventoPunto = new AbstractAction() {
+                        @Override
                         public void actionPerformed(ActionEvent e) {
                             int puntos = 0;
                             String textoPantalla = pantalla.getText();
@@ -55,7 +103,14 @@ public class PanelBotones extends JPanel {
                                 pantalla.setText(textoPantalla + '.');
                             }
                         }
-                    });
+                    };
+
+                    eventoPunto.putValue(Action.NAME, ".");
+
+                    mapaEntrada.put(KeyStroke.getKeyStroke('.'), "punto");
+                    mapaAccion.put("punto", eventoPunto);
+
+                    botones[i][j].setAction(eventoPunto);
 
                 }else if(c == '+' || c == '-' || c == '*' || c == '/'){
 
