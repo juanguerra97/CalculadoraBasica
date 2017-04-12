@@ -1,6 +1,7 @@
 package graficos;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,8 @@ public class PanelCalculadora extends JPanel {
         pantalla.setHorizontalAlignment(SwingConstants.RIGHT);
         pantalla.setEditable(false);
         pantalla.setText("0");
+        pantalla.setBackground(Color.WHITE);
+        pantalla.setForeground(new Color(38,50,56));
         //--------------------------------------------------------------------------------------------------------------
 
         PanelBotones pnlBotones = new PanelBotones();//Se crea instancia de la clase PanelBotones

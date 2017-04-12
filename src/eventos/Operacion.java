@@ -32,6 +32,7 @@ public class Operacion extends AbstractAction {
 
         if(operando == 0 && Calculadora.ultimaOperacion() == '/'){
             JOptionPane.showMessageDialog(null, "NO ES POSIBLE DIVIDIR ENTRE CERO!!!");
+            Calculadora.resetear();
         }else{
 
             Calculadora.agregarOperando(operando);

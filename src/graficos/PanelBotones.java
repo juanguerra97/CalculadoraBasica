@@ -3,6 +3,7 @@ package graficos;
 import eventos.*;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,8 @@ public class PanelBotones extends JPanel {
     //Constructor
     public PanelBotones(){
 
-        setLayout(new GridLayout(3,6));//El panel tiene layout de grid de 4x5
+        setLayout(new GridLayout(3,6));//El panel tiene layout de grid de 3x6
+        setBackground(Color.WHITE);
 
         String signos[][] = {{"7","8","9","DEL","AC","="},//Simbolos que estaran en los botones
                             {"4","5","6","+","-","*"},
@@ -28,9 +30,12 @@ public class PanelBotones extends JPanel {
 
         for(int i = 0; i < 3; ++i){
             for(int j = 0; j < 6; ++j){
-                botones[i][j] = new JButton(signos[i][j]);//Inicializacion del boton en la posicion i,j del arreglo botones
 
+                botones[i][j] = new JButton(signos[i][j]);//Inicializacion del boton en la posicion i,j del arreglo botones
                 botones[i][j].setFont(new Font("",1,20));
+
+                Color background;
+                Color foreground;
 
                 char c = signos[i][j].charAt(0);
                 if(Character.isDigit(c)){
@@ -80,6 +85,9 @@ public class PanelBotones extends JPanel {
                     mapaAccion.put("numero" + numero, eventoNumerico);
 
                     botones[i][j].setAction(eventoNumerico);
+                    botones[i][j].setFont(new Font("Verdana",0,20));
+                    background = new Color(38,50,56);
+                    foreground = Color.WHITE;
 
                 }else if(c == '.'){
 
@@ -111,6 +119,10 @@ public class PanelBotones extends JPanel {
                     mapaAccion.put("punto", eventoPunto);
 
                     botones[i][j].setAction(eventoPunto);
+                    botones[i][j].setFont(new Font("Trebuchet",0,32));
+
+                    background = new Color(38,50,56);
+                    foreground = Color.WHITE;
 
                 }else if(c == '+' || c == '-' || c == '*' || c == '/'){
 
@@ -124,8 +136,17 @@ public class PanelBotones extends JPanel {
 
                     botones[i][j].setAction(eventoOperacion);
 
-                }
+                    background = new Color(255,235,59);
+                    foreground = Color.BLACK;
 
+                }else{
+                    background = Color.WHITE;
+                    foreground = Color.BLACK;
+                }
+                botones[i][j].setFocusPainted(false);
+                botones[i][j].setBackground(background);
+                botones[i][j].setForeground(foreground);
+                botones[i][j].setBorder(new LineBorder(Color.WHITE));
                 add(botones[i][j]);//Se agrega el boton al panel
 
             }//Termina for
@@ -147,7 +168,12 @@ public class PanelBotones extends JPanel {
         AbstractAction eventoIgual = new Igual();
         mapaEntrada.put(KeyStroke.getKeyStroke('\n'), "igual");
         mapaAccion.put("igual", eventoIgual);
+        botones[0][5].setFont(new Font("",1,40));
         botones[0][5].setAction(eventoIgual);
+
+        Color rojo = new Color(244,67,54);
+        botones[0][3].setBackground(rojo);
+        botones[0][4].setBackground(rojo);
 
     }//Fin constructor
 
